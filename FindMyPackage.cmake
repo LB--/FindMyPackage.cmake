@@ -224,7 +224,11 @@ foreach(_component ${${_package}_FIND_COMPONENTS})
 endforeach()
 set(${_package}_FOUND 1)
 string(REPLACE ";" ", " _components "${_components}")
-_fmp_report_info("Found version ${_preferred_version} with components ${_components}")
+if(_components STREQUAL "")
+	_fmp_report_info("Found version ${_preferred_version} with no components")
+else()
+	_fmp_report_info("Found version ${_preferred_version} with components (${_components})")
+endif()
 return()
 
 # Done!
