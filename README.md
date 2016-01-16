@@ -8,10 +8,10 @@ You need to use a versioned directory structure for your installation, with a pa
 Components are also supported, just put their package config files at a location like `MyPackage/3.14.159/cmake/MyPackage/Component.cmake`.
 
 `MyPackage_ROOT` can be set before calling `find_package` to help with finding the desired location, otherwise it will be found automatically if it is in a standard location.
-Within the `MyPackage_ROOT` directory, there should be a directory named `MyPackage`, and within that directory should be directories names after the versions they contain (e.g. 3.14.159).
+Within the `MyPackage_ROOT` directory, there should be a directory named `MyPackage`, and within that directory should be directories named after the versions they contain (e.g. 3.14.159).
 Within each version directory is a typical installation tree with directories such as `cmake`, `include`, `lib`, `bin`, etc.
 
-There is support for rich version matching - for example, `find(MyPackage 2 EXACT)` will find the highest version with a major version of 2, whereas `find(MyPackage 3.14)` will find the highest available version where the major version number is _at least_ 3 and the minor version number is _at least_ 14.
+There is support for rich version matching - for example, `find(MyPackage 2 EXACT)` will find the highest version with a major version of 2, whereas `find(MyPackage 3.14)` will find the highest available version where the major version number is _at least_ 3 and, if the major version equals 3, the minor version number is _at least_ 14.
 All CMake-style versions are supported - that is, versions in the format `major[.minor[.patch[.tweak]]]`.
 Although you can have different depths for each version, I recommend that you use the same depth for all versions to avoid confusion.
 When requesting optional components, only the version(s) with the most requested optional components are considered (so a lower version may be selected if it has more of the desired optional components).
