@@ -45,3 +45,9 @@ If your package is named `CamelCasePackage`, then you will need to listen for `$
 * `<package>_VERSION_MINOR`
 * `<package>_VERSION_PATCH`
 * `<package>_VERSION_TWEAK`
+
+## Example Usages
+* [LB::events](https://github.com/LB--/events/blob/events/events/CMakeLists.txt#L7) - typical library with dependencies
+* [LB::optional](https://github.com/LB--/optional/blob/optional/CMakeLists.txt#L7) - header only library w/o dependencies
+* [LB::tuples](https://github.com/LB--/tuples/blob/tuples/CMakeLists.txt#L7) - header only library w/o dependencies
+* [LB::cloning](https://github.com/LB--/cloning/blob/cloning/CMakeLists.txt#L7) - header only library w/o dependencies
