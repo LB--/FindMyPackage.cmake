@@ -35,6 +35,7 @@ If your package is named `CamelCasePackage`, then you will need to listen for `$
 ### Output Variables
 * `<package>_FOUND` - 1 if found, unset otherwise.
 * `<package>_<component>_FOUND` - 1 if the requested component was found, unset otherwise.
+* `<package>_NOT_FOUND_MESSAGE` - the error message if the package was not found
 * `<package>_ROOT` - the directory containing the start of the directory tree (contains a folder named `<package>`)
 * `<package>_ROOT_DIR` - path to the selected installation (contains the version number in the path)
 * `<package>_VERSIONS_DIRECTORY` - path to the directory containing the version directories
