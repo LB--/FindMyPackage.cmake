@@ -24,11 +24,10 @@ Then users can use `find_package(LB/events)` and it will work, whilst the packag
 And yes, CMake variable names can contain slashes - `${LB/events_FOUND}` will indicate whether my package is found.
 The script will find and include my package config file at a path like `LB/events/3.14.159/cmake/LB/events.cmake` and it is expected that this will introduce an imported target named `LB::events`.
 
-## Case Sensitivity
+## Variables
 Rmemeber: CMake variable names are case sensitive.
 If your package is named `CamelCasePackage`, then you will need to listen for `${CamelCasePackage_FOUND}` with the same case.
 
-## Variables
 ### Input Variables
 * `<package>_ROOT` (optional) - the directory containing the start of the directory tree (should contain a folder named `<package>`)
 * `<package>_PREFER_HIGHEST` - instead of selecting a lower version with more of the requested optional components, prefer selecting the highest version even if it has fewer requested optional components
