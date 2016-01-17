@@ -27,3 +27,21 @@ The script will find and include my package config file at a path like `LB/event
 ## Case Sensitivity
 Rmemeber: CMake variable names are case sensitive.
 If your package is named `CamelCasePackage`, then you will need to listen for `${CamelCasePackage_FOUND}` with the same case.
+
+## Variables
+### Input Variables
+* `<package>_ROOT` (optional) - the directory containing the start of the directory tree (should contain a folder named `<package>`)
+
+### Output Variables
+* `<package>_FOUND` - 1 if found, unset otherwise.
+* `<package>_<component>_FOUND` - 1 if the requested component was found, unset otherwise.
+* `<package>_ROOT` - the directory containing the start of the directory tree (contains a folder named `<package>`)
+* `<package>_ROOT_DIR` - path to the selected installation (contains the version number in the path)
+* `<package>_VERSIONS_DIRECTORY` - path to the directory containing the version directories
+* `<package>_VERSIONS` - ;-list of all versions that were considered
+* `<package>_VERSION` - the selected version
+* `<package>_VERSION_STRING` - same as `<package>_VERSION`
+* `<package>_VERSION_MAJOR`
+* `<package>_VERSION_MINOR`
+* `<package>_VERSION_PATCH`
+* `<package>_VERSION_TWEAK`
