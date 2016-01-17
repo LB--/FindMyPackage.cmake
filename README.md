@@ -31,6 +31,7 @@ If your package is named `CamelCasePackage`, then you will need to listen for `$
 ## Variables
 ### Input Variables
 * `<package>_ROOT` (optional) - the directory containing the start of the directory tree (should contain a folder named `<package>`)
+* `<package>_PREFER_HIGHEST` - instead of selecting a lower version with more of the requested optional components, prefer selecting the highest version even if it has fewer requested optional components
 
 ### Output Variables
 * `<package>_FOUND` - 1 if found, unset otherwise.
