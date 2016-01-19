@@ -64,16 +64,20 @@ foreach(_component ${${_package}_FIND_COMPONENTS})
 endforeach()
 _fmp_report_debug("########")
 
+# For CMake GUI
+option(${_package}_PREFER_HIGHEST
+	"Prefer the highest available version even if a lower version has more requested optional components"
+)
+
 # Find where all versions are installed
-if(NOT ${_package}_ROOT)
-	find_path(${_package}_ROOT
-		NAMES
-			${_package}
-	)
-endif()
+find_path(${_package}_ROOT
+	NAMES
+		${_package}
+	DOC "This should be the directory that contains ${_package}"
+)
 
 # Error out if we could not find the package directory
-if(${${_package}_ROOT} STREQUAL "${_package}_ROOT-NOTFOUND")
+if("${${_package}_ROOT}" STREQUAL "${_package}_ROOT-NOTFOUND")
 	_fmp_report_error("Could not find where versions are stored - please set ${_package}_ROOT")
 	return()
 endif()
