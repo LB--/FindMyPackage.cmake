@@ -1,0 +1,21 @@
+language: c++
+sudo: false
+os: linux
+cache:
+  directories:
+    - "$HOME/.travis/cmake/build/install"
+
+before_install:
+  - pushd . && cd $HOME
+  - git clone --depth 1 https://github.com/LB--/travis.git travis
+  - source "./travis/update-cmake.sh"
+  - popd
+
+before_script:
+  - mkdir build && cd build
+script:
+  - cmake ../test
+  - ctest -VV
+
+notifications:
+  email: false
