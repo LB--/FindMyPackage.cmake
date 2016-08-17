@@ -12,6 +12,7 @@ macro(simple_test _name)
 		WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
 		COMMAND
 			"${CMAKE_COMMAND}"
+			"-DTEST_NAME:STRING=${_name}"
 			"-DTEST_UTILS:FILEPATH=${CMAKE_CURRENT_SOURCE_DIR}/test-utils.cmake"
 			"-DTEST_MODULE_DIR:PATH=${CMAKE_CURRENT_SOURCE_DIR}/../"
 			"-DTEST_SOURCE_DIR:PATH=${CMAKE_CURRENT_SOURCE_DIR}/${_name}"
@@ -36,7 +37,15 @@ simple_test(simple-optional-found)
 simple_test(simple-required-notfound WILL_FAIL)
 simple_test(simple-required-found)
 
+simple_test(multiple-digits)
+
 simple_test(multiple-versions-major)
 simple_test(multiple-versions-minor)
-#simple_test(multiple-versions-patch)
-#simple_test(multiple-versions-tweak)
+simple_test(multiple-versions-patch)
+simple_test(multiple-versions-tweak)
+simple_test(multiple-versions-extra)
+simple_test(multiple-versions-duplicate)
+
+simple_test(directory-was-file)
+simple_test(version-was-file)
+simple_test(invalid-version)

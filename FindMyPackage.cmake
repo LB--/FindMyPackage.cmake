@@ -76,22 +76,40 @@ find_path(${_package}_ROOT
 	DOC "This should be the directory that contains ${_package}"
 )
 
+_fmp_report_debug("${_package}_ROOT=${${_package}_ROOT}")
+
 # Error out if we could not find the package directory
 if("${${_package}_ROOT}" STREQUAL "${_package}_ROOT-NOTFOUND")
 	_fmp_report_error("Could not find where versions are stored - please set ${_package}_ROOT")
 	return()
+elseif(NOT EXISTS "${${_package}_ROOT}")
+	_fmp_report_error("Specified root directory does not exist - please check ${_package}_ROOT")
+	return()
+elseif(NOT IS_DIRECTORY "${${_package}_ROOT}")
+	_fmp_report_error("Specified root directory isn't a directory - please check ${_package}_ROOT")
+	return()
 endif()
-
-_fmp_report_debug("${_package}_ROOT=${${_package}_ROOT}")
-
-set(${_package}_VERSIONS_DIRECTORY ${${_package}_ROOT}/${_package})
+set(${_package}_VERSIONS_DIRECTORY "${${_package}_ROOT}/${_package}")
+if(NOT EXISTS "${${_package}_VERSIONS_DIRECTORY}")
+	unset(${_package}_VERSIONS_DIRECTORY)
+	_fmp_report_error("Specified root directory does not contain a ${_package} directory - please check ${_package}_ROOT")
+	return()
+elseif(NOT IS_DIRECTORY "${${_package}_VERSIONS_DIRECTORY}")
+	unset(${_package}_VERSIONS_DIRECTORY)
+	_fmp_report_error("${_package} directory is not a directory - please check ${_package}_ROOT")
+	return()
+endif()
 
 # Get a list of the package versions
 file(GLOB ${_package}_VERSIONS
 	LIST_DIRECTORIES true
-	RELATIVE ${${_package}_VERSIONS_DIRECTORY}
-	${${_package}_VERSIONS_DIRECTORY}/*
+	RELATIVE "${${_package}_VERSIONS_DIRECTORY}"
+	"${${_package}_VERSIONS_DIRECTORY}/*"
 )
+
+if(LB_FIND_MY_PACKAGE_DEBUG)
+	list(SORT ${_package}_VERSIONS)
+endif()
 
 _fmp_report_debug("${_package}_VERSIONS=${${_package}_VERSIONS}")
 
@@ -104,6 +122,16 @@ endif()
 # Find candidate versions
 set(_candidate_versions "")
 foreach(_version ${${_package}_VERSIONS})
+	# Error out on invalid versions
+	string(REGEX MATCH "^[0-9]+(\\.[0-9]+)*$" _match ${_version})
+	if("${_match}" STREQUAL "")
+		_fmp_report_error("\"${_version}\" is not a valid version - please remove it from ${${_package}_VERSIONS_DIRECTORY}")
+		return()
+	elseif(NOT IS_DIRECTORY "${${_package}_VERSIONS_DIRECTORY}/${_version}")
+		_fmp_report_error("\"${_version}\" is not a directory - please remove it from ${${_package}_VERSIONS_DIRECTORY}")
+		return()
+	endif()
+
 	# Reset find version vars
 	set(_find_version ${${_package}_FIND_VERSION})
 	string(REPLACE "." ";" _find_version_list "${_find_version}")
@@ -112,6 +140,14 @@ foreach(_version ${${_package}_VERSIONS})
 	# Reset candidate version vars
 	string(REPLACE "." ";" _version_list "${_version}")
 	list(LENGTH _version_list _version_depth)
+
+	# Error out on duplicate versions
+	foreach(_prev_version ${_candidate_versions})
+		if(_prev_version VERSION_EQUAL _version)
+			_fmp_report_error("Duplicate versions detected - please remove duplicates (e.g. ${_prev_version} and ${_version}) in ${${_package}_VERSIONS_DIRECTORY}")
+			return()
+		endif()
+	endforeach()
 
 	# Determine if this version is a candidate
 	if(_find_version_depth GREATER _version_depth)

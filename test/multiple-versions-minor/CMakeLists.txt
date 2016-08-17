@@ -2,15 +2,15 @@ cmake_minimum_required(VERSION 3.1)
 
 include("${TEST_UTILS}")
 
+project(${TEST_NAME}
+	LANGUAGES NONE
+)
+
 test_create_versions(MyPackage
 	0.0 0.1 0.2
 	1.0 1.1 1.2
 	2.0 2.1 2.2
 	3.0 3.1 3.2
-)
-
-project(test/multiple-versions-major
-	LANGUAGES NONE
 )
 
 find_package(MyPackage REQUIRED)

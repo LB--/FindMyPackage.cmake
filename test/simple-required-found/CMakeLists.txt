@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 3.1)
 
 include("${TEST_UTILS}")
 
-test_create_versions(MyPackage
-	1
+project(${TEST_NAME}
+	LANGUAGES NONE
 )
 
-project(test/simple-optional-notfound
-	LANGUAGES NONE
+test_create_versions(MyPackage
+	1
 )
 
 find_package(MyPackage REQUIRED)

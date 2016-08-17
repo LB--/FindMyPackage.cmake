@@ -1,4 +1,4 @@
-FindMyPackage.cmake
+FindMyPackage.cmake [![travis](https://travis-ci.org/LB--/FindMyPackage.cmake.svg?branch=cmake)](https://travis-ci.org/LB--/FindMyPackage.cmake)
 ===================
 
 This is my personal CMake FindPackage script template - it handles having multiple versions installed and it doesn't require any modification for my purposes other than changing the filename.

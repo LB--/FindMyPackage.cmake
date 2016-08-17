@@ -1,7 +1,8 @@
 
 function(test_create_versions _package)
-	set(_root            "${CMAKE_CURRENT_BINARY_DIR}/root")
-	set(${_package}_ROOT "${CMAKE_CURRENT_BINARY_DIR}/root" PARENT_SCOPE)
+	list(SORT ARGN)
+	set(_root            "${CMAKE_CURRENT_BINARY_DIR}/root with spaces")
+	set(${_package}_ROOT "${CMAKE_CURRENT_BINARY_DIR}/root with spaces" PARENT_SCOPE)
 	set(${_package}_VERSIONS_CREATED ${ARGN} PARENT_SCOPE)
 
 	foreach(_version ${ARGN})
@@ -29,7 +30,7 @@ function(test_verify_vars)
 
 	set(_var_i 0)
 	set(_val_i 1)
-	while(${_var_i} LESS ${ARGC})
+	while("${_var_i}" LESS "${ARGC}")
 		set(_var "${ARGV${_var_i}}")
 		set(_val "${ARGV${_val_i}}")
 
